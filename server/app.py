@@ -23,15 +23,11 @@ def index():
 @app.route('/games')
 def games():
 
-    games = []
-    for game in Game.query.all():
-        game_dict = game.to_dict()
-        games.append(game_dict)
+    games = [game.to_dict() for game in Game.query.all()]
 
     response = make_response(
         games,
-        200,
-        {"Content-Type": "application/json"}
+        200
     )
 
     return response
