@@ -25,16 +25,11 @@ def games():
 
     games = []
     for game in Game.query.all():
-        game_dict = {
-            "title": game.title,
-            "genre": game.genre,
-            "platform": game.platform,
-            "price": game.price,
-        }
+        game_dict = game.to_dict()
         games.append(game_dict)
 
     response = make_response(
-        jsonify(games),
+        games,
         200,
         {"Content-Type": "application/json"}
     )
@@ -45,12 +40,7 @@ def games():
 def game_by_id(id):
     game = Game.query.filter(Game.id == id).first()
 
-    game_dict = {
-        "title": game.title,
-        "genre": game.genre,
-        "platform": game.platform,
-        "price": game.price,
-    }
+    game_dict = game.to_dict()
 
     response = make_response(
         game_dict,
